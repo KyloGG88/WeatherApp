@@ -3,8 +3,8 @@
 # Module 8 Challenge: Weatther Forecast App
 
 # Expected Result
-The following animation demonstrates the application functionality:
-![](images/)
+The following image shows what the result should be:
+![](assets/images/08-server-side-apis-homework-demo.png)
 
 ## Requirements
 
@@ -38,16 +38,16 @@ Here are screenshots of my work: (screenshots must be updated)
 
 # Resources
 
-***Days Js***
-*     https://day.js.org/docs/en/display/format
+***Coding Boot Camp***
+*     https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys
+***OpenWeather API***
+*     https://openweathermap.org/forecast5
 ***jQuery***
 *     https://api.jquery.com/jQuery.get/
 ***MDN Web Docs***
 *     https://developer.mozilla.org/en-US/docs/Web/API/Storage/getItem
 ***CodingNinjas***
 *     https://www.codingninjas.com/studio/library/settimeout-jquery
-***Log Rocket***
-*     https://blog.logrocket.com/storing-retrieving-javascript-objects-localstorage/
 ***Stack Overflow***
 *       https://stackoverflow.com/questions/74433492/how-can-i-display-the-date-and-time-in-dayjs-12hours-clock-using-dayjs
 *       https://stackoverflow.com/questions/26887393/how-to-do-time-check-in-jquery
