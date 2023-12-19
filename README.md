@@ -1,6 +1,6 @@
 # WeatherApp
 
-# Module 8 Challenge: Weatther Forecast App
+# Module 8 Challenge: Weather Forecast App
 
 # Expected Result
 The following image shows what the result should be:
