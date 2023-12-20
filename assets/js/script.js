@@ -1,6 +1,6 @@
 const APIKey = "1cf3b6b2378dbd633c0e3d2ef94acefc";
 let buttonDiv = $(".button-div")
-let cityArr = []
+let cityButtonArr = []
 
 loadData();
 
@@ -20,16 +20,14 @@ function clearForecastBoxes() {
 $("#form").on('submit', function (e) {
   e.preventDefault();
 
-  let city = $("#city-input").val();
-  let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${APIKey}`;
-  var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}35&lon=${longitude}&units=metric&appid=${APIKey}`
+  let city = $("#city-input").val()
+  let queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
 
-  fetch(queryURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (response) {
-      // console.log(data); initial check
+    reloadData();
 
       let longitude = response.coord.lon
       let latitude = response.coord.lat
@@ -46,16 +44,17 @@ $("#form").on('submit', function (e) {
     $("#temperature").append("Temperature: " + response.main.temp_max + "°")
 
 
-    forecastData();
+          forecastData();
 
     function forecastData() {
-      
-      fetch(forecastURL)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (response) {
-        
+      var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}35&lon=${longitude}&units=metric&APPID=${APIKey}`
+      $.ajax({
+        url: forecastUrl,
+        method: "GET"
+      }).then(function (response) {
+        console.log("forecast response")
+        console.log(response)
+
         clearForecastBoxes();
 
         $("#date1").append(response.list[7].dt_txt.slice(5, 10))
@@ -109,59 +108,59 @@ $("#form").on('submit', function (e) {
     clearForm();
 
     function generateButton() {
-      let create = $("<button>")
+      var create = $("<button>")
       create.attr("class", "btn btn-outline-secondary")
       create.attr("type", "button")
       create.text(response.name)
       buttonDiv.prepend(create)
-      let cityString = response.name
-      cityArr.push(cityString.toString())
-      localStorage.setItem("cityStorage", JSON.stringify(cityArr))
+      var cityString = response.name
+      cityButtonArr.push(cityString.toString())
+      localStorage.setItem("cityStorage", JSON.stringify(cityButtonArr))
     };
   })
 });
 
 function loadData() {
-  let loadData = localStorage.getItem("cityStorage")
+  var loadData = localStorage.getItem("cityStorage")
   if (loadData == null || loadData == "") {
     return;
   }
-  cityArr = JSON.parse(loadData)
-  for (i = 0; i < cityArr.length; i++) {
-    let create = $("<button>")
+  cityButtonArr = JSON.parse(loadData)
+  for (i = 0; i < cityButtonArr.length; i++) {
+    var create = $("<button>")
     create.attr("class", "btn btn-outline-secondary")
 
-    create.text(cityArr[i])
+    create.text(cityButtonArr[i])
     buttonDiv.prepend(create)
   };
 };
 
 $(".btn").on('click', function () {
   city = $(this).text()
-  // var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}`
-  fetch(queryURL)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (response) {
+  var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}`
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
     reloadData();
     $("#city-title").append(response.name)
     $(".city").attr("style", "font-weight: bold; font-size: 30px")
     $("#wind-speed").append("Wind speed: " + response.wind.speed + " MPH")
     $("#temperature").append("Temperature: " + response.main.temp + "°")
 
-    let longitude = response.coord.lon
-    let latitude = response.coord.lat
+    var longitude = response.coord.lon
+    var latitude = response.coord.lat
 
     forecastData();
 
     function forecastData() {
-      // var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}35&lon=${longitude}&units=metric&appid=${APIKey}`;
-      fetch(forecastURL)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (response) {
+      var forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}35&lon=${longitude}&units=metric&APPID=${APIKey}`
+      $.ajax({
+        url: forecastUrl,
+        method: "GET"
+      }).then(function (response) {
+        console.log("forecast response")
+        console.log(response)
 
         clearForecastBoxes();
 
